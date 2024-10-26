@@ -30,5 +30,5 @@ spring:
         prefetch: 1
         concurrency: 3
         acknowledge-mode: manual   #消费端手动确认
-aliyun:
+
 
