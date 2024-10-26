@@ -33,6 +33,6 @@ spring:
 aliyun:
   endpoint: yourEndpoint
   keyid: yourKeyid
-  keysecret: yourKeysecret
+  yourKeysecret: yourKeysecret
   bucketname: yourBucketname
 
