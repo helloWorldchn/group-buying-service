@@ -31,8 +31,8 @@ spring:
         concurrency: 3
         acknowledge-mode: manual   #消费端手动确认
 aliyun:
-  endpoint: oss-cn-beijing.aliyuncs.com
-  keyid: LTAI5tEEJmuaJ45oMVSNBPT6
-  keysecret: sPx5p04J6st18wUeMzRXtMp2MLmT8a
-  bucketname: group-buying-chn
+  endpoint: yourEndpoint
+  keyid: yourKeyid
+  keysecret: yourKeysecret
+  bucketname: yourBucketname
 
