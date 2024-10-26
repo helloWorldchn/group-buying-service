@@ -31,8 +31,4 @@ spring:
         concurrency: 3
         acknowledge-mode: manual   #消费端手动确认
 aliyun:
-  endpoint: yourEndpoint
-  keyid: yourKeyid
-  yourKeysecret: yourKeysecret
-  bucketname: yourBucketname
 
