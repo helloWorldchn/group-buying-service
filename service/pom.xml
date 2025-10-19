@@ -17,6 +17,8 @@
         <module>service_product</module>
         <module>service_search</module>
         <module>service_activity</module>
+        <module>service_user</module>
+        <module>service_home</module>
     </modules>
 
     <properties>

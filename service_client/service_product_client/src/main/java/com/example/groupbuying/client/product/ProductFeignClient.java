@@ -14,10 +14,10 @@ import java.util.List;
 public interface ProductFeignClient {
 
     @GetMapping("/api/product/inner/getCategory/{categoryId}")
-    public Category getCategory(@PathVariable("categoryId") Long categoryId);
+    Category getCategory(@PathVariable("categoryId") Long categoryId);
 
     @GetMapping("/api/product/inner/getSkuInfo/{skuId}")
-    public SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId);
+    SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId);
 
     // 根据skuId批量获取sku信息，活动使用
     @PostMapping("/api/product/inner/findSkuInfoList")
@@ -30,4 +30,10 @@ public interface ProductFeignClient {
     // 批量获取分类信息
     @PostMapping("/api/product/inner/findCategoryList")
     List<Category> findCategoryList(@RequestBody List<Long> categoryIdList);
+
+    @GetMapping("/api/product/inner/findAllCategoryList")
+    List<Category> findAllCategoryList();
+
+    @GetMapping("/api/product/inner/findNewPersonSkuInfoList")
+    List<SkuInfo> findNewPersonSkuInfoList();
 }

@@ -1,6 +1,7 @@
 package com.example.groupbuying.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.groupbuying.mq.constant.MqConst;
@@ -239,11 +240,33 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         return skuInfoList;
     }
 
-    //根据关键字获取sku列表
+    /**
+     * 根据关键字查询sku列表
+     * @param keyword 关键字
+     * @return sku列表
+     */
     @Override
     public List<SkuInfo> findSkuInfoByKeyword(String keyword) {
         LambdaQueryWrapper<SkuInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(SkuInfo::getSkuName, keyword);
         return baseMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 获取新人专享商品列表
+     * @return 新人专享商品列表
+     */
+    @Override
+    public List<SkuInfo> findNewPersonSkuInfoList() {
+        // 条件1：isNewPerson = 1 （新人专享商品）
+        // 条件2：publishStatus = 1 （已发布）
+        // 条件3：显示其中三个商品
+        Page<SkuInfo> page = new Page<>(1, 3); // 分页参数：获取第1页，每页3条记录
+        QueryWrapper<SkuInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SkuInfo::getIsNewPerson, 1);
+        queryWrapper.lambda().eq(SkuInfo::getPublishStatus, 1);
+        queryWrapper.lambda().orderByDesc(SkuInfo::getStock); // 按照库存降序排序
+        IPage<SkuInfo> skuInfoPage = baseMapper.selectPage(page, queryWrapper);
+        return skuInfoPage.getRecords();
     }
 }

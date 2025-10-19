@@ -1,7 +1,6 @@
 package com.example.groupbuying.search.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.groupbuying.model.search.SkuEs;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -10,13 +9,18 @@ public interface SkuService {
 
     /**
      * 上架商品列表
-     * @param skuId
+     * @param skuId 商品id
      */
     void upperSku(Long skuId);
 
     /**
      * 下架商品列表
-     * @param skuId
+     * @param skuId 商品id
      */
     void lowerSku(Long skuId);
+    /**
+     * 获取爆品商品
+     * @return 爆品商品列表
+     */
+    List<SkuEs> findHotSkuList();
 }

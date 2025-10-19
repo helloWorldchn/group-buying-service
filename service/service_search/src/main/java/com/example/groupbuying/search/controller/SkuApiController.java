@@ -1,6 +1,7 @@
 package com.example.groupbuying.search.controller;
 
 import com.example.groupbuying.common.result.Result;
+import com.example.groupbuying.model.search.SkuEs;
 import com.example.groupbuying.search.service.SkuService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,15 +26,21 @@ public class SkuApiController {
 
     @ApiOperation(value = "上架商品")
     @GetMapping("inner/upperSku/{skuId}")
-    public Result upperGoods(@PathVariable("skuId") Long skuId) {
+    public Result<String> upperGoods(@PathVariable("skuId") Long skuId) {
         skuService.upperSku(skuId);
         return Result.ok(null);
     }
 
     @ApiOperation(value = "下架商品")
     @GetMapping("inner/lowerSku/{skuId}")
-    public Result lowerGoods(@PathVariable("skuId") Long skuId) {
+    public Result<String> lowerGoods(@PathVariable("skuId") Long skuId) {
         skuService.lowerSku(skuId);
         return Result.ok(null);
+    }
+
+    @ApiOperation(value = "获取爆品商品")
+    @GetMapping("inner/findHotSkuList")
+    public List<SkuEs> findHotSkuList() {
+        return skuService.findHotSkuList();
     }
 }

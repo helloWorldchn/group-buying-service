@@ -11,7 +11,13 @@ import com.example.groupbuying.client.product.ProductFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -73,5 +79,19 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public void lowerSku(Long skuId) {
         this.skuEsRepository.deleteById(skuId);
+    }
+
+    /**
+     * 获取爆品商品
+     *
+     * @return 爆品商品列表
+     */
+    @Override
+    public List<SkuEs> findHotSkuList() {
+        // find read get 开头
+        // 关联条件关键字
+        Pageable pageable = PageRequest.of(0, 10); // 0 代表第一页
+        Page<SkuEs> pageModel = skuEsRepository.findByOrderByHotScoreDesc(pageable);
+        return pageModel.getContent();
     }
 }

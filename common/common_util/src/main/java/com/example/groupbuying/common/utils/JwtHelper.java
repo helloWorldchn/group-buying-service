@@ -7,13 +7,13 @@ import java.util.Date;
 
 public class JwtHelper {
 
-    private static long tokenExpiration = 365*24*60*60*1000;
-    private static String tokenSignKey = "ssyx";
+    private static final long tokenExpiration = 365L * 24 * 60 * 60 * 1000;
+    private static final String tokenSignKey = "groupbuying";
 
     //根据userId+userName生成token字符串
     public static String createToken(Long userId, String userName) {
         String token = Jwts.builder()
-                .setSubject("ssyx-USER")
+                .setSubject("groupbuying-USER")
 
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
 
@@ -46,7 +46,7 @@ public class JwtHelper {
     }
 
     public static void removeToken(String token) {
-        //jwttoken无需删除，客户端扔掉即可。
+        //JWT token无需删除，客户端扔掉即可。
     }
 
     public static void main(String[] args) {
