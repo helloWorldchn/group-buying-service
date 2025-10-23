@@ -30,4 +30,9 @@ spring:
         prefetch: 1
         concurrency: 3
         acknowledge-mode: manual   #消费端手动确认
+aliyun:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  keyid: your_key_id
+  keysecret: your_key_secret
+  bucketname: group-buying-chn
 
