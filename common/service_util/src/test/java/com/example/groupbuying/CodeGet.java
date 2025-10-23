@@ -31,7 +31,7 @@ public class CodeGet {
         dsc.setUrl("jdbc:mysql://localhost:3306/groupbuying-activity?serverTimezone=GMT%2B8&useSSL=false");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("121314");
+        dsc.setPassword("123456");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
