@@ -11,14 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * <p>
- * 活动表 前端控制器
- * </p>
- *
- * @author example
- * @since 2024-04-24
- */
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +21,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>
+ * 活动表 前端控制器
+ * </p>
+ *
+ * @author example
+ * @since 2024-04-24
+ */
 @Api(value = "ActivityInfo活动信息管理", tags = "活动信息管理")
 @RestController
 @RequestMapping("/admin/activity/activityInfo")

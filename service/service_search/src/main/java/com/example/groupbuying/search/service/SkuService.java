@@ -1,6 +1,9 @@
 package com.example.groupbuying.search.service;
 
 import com.example.groupbuying.model.search.SkuEs;
+import com.example.groupbuying.vo.search.SkuEsQueryVo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -23,4 +26,13 @@ public interface SkuService {
      * @return 爆品商品列表
      */
     List<SkuEs> findHotSkuList();
+
+    /**
+     * 查询商品分类
+     *
+     * @param pageable 分页
+     * @param skuEsQueryVo 查询对象
+     * @return 分类商品信息
+     */
+    Page<SkuEs> search(Pageable pageable, SkuEsQueryVo skuEsQueryVo);
 }

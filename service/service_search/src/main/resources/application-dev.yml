@@ -28,7 +28,8 @@ spring:
         concurrency: 3
         acknowledge-mode: manual
   redis:
-    host: localhost
+#    host: localhost
+    host: 192.168.153.83
     port: 6379
     database: 0
     timeout: 1800000

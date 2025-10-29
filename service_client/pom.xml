@@ -15,6 +15,7 @@
         <module>service_product_client</module>
         <module>service_user_client</module>
         <module>service_search_client</module>
+        <module>service_activity_client</module>
     </modules>
 
     <properties>

@@ -23,8 +23,8 @@ import java.util.Map;
 public interface ActivityInfoService extends IService<ActivityInfo> {
     /**
      * 分页查询
-     * @param pageParam
-     * @return
+     * @param pageParam 查询参数
+     * @return 活动信息
      */
     IPage<ActivityInfo> selectPageActivityInfo(Page<ActivityInfo> pageParam);
 
@@ -40,8 +40,17 @@ public interface ActivityInfoService extends IService<ActivityInfo> {
 
     /**
      * 根据skuId获取促销规则信息
-     * @param skuId
-     * @return
+     *
+     * @param skuId skuId
+     * @return 促销规则信息
      */
     List<ActivityRule> findActivityRule(Long skuId);
+
+    /**
+     * 根据skuId列表获取促销信息
+     *
+     * @param skuIdList skuId列表
+     * @return 取促销信息
+     */
+    Map<Long, List<String>> findActivity(List<Long> skuIdList);
 }
