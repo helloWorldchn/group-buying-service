@@ -39,18 +39,27 @@ public interface ActivityInfoService extends IService<ActivityInfo> {
     List<SkuInfo> findSkuInfoByKeyword(String keyword);
 
     /**
-     * 根据skuId获取促销规则信息
-     *
-     * @param skuId skuId
-     * @return 促销规则信息
-     */
-    List<ActivityRule> findActivityRule(Long skuId);
-
-    /**
      * 根据skuId列表获取促销信息
      *
      * @param skuIdList skuId列表
      * @return 取促销信息
      */
     Map<Long, List<String>> findActivity(List<Long> skuIdList);
+
+    /**
+     * 根据skuId获取促销与优惠券信息
+     *
+     * @param skuId skuId
+     * @param userId 用户Id
+     * @return 取促销信息
+     */
+    Map<String, Object> findActivityAndCoupon(Long skuId, Long userId);
+
+    /**
+     * 根据skuId获取促销规则信息
+     *
+     * @param skuId skuId
+     * @return 促销规则信息
+     */
+    List<ActivityRule> findActivityRuleBySkuId(Long skuId);
 }

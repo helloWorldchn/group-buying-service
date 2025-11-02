@@ -2,7 +2,10 @@ package com.example.groupbuying.activity.mapper;
 
 import com.example.groupbuying.model.activity.CouponInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CouponInfoMapper extends BaseMapper<CouponInfo> {
+
+    /**
+     * sku优惠券
+     * @param skuId 商品skuId
+     * @param categoryId 分类id
+     * @param userId 用户Id
+     * @return sku优惠券
+     */
+    List<CouponInfo> selectCouponInfoList(@Param("skuId") Long skuId, @Param("categoryId") Long categoryId, @Param("userId") Long userId);
 
 }

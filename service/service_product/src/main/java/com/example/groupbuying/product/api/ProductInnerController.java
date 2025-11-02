@@ -4,6 +4,7 @@ import com.example.groupbuying.model.product.Category;
 import com.example.groupbuying.model.product.SkuInfo;
 import com.example.groupbuying.product.service.CategoryService;
 import com.example.groupbuying.product.service.SkuInfoService;
+import com.example.groupbuying.vo.product.SkuInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,11 @@ public class ProductInnerController {
     @GetMapping("inner/findNewPersonSkuInfoList")
     public List<SkuInfo> findNewPersonSkuInfoList() {
         return skuInfoService.findNewPersonSkuInfoList();
+    }
+
+    @ApiOperation(value = "根据skuId获取sku信息")
+    @GetMapping("inner/getSkuInfoVo/{skuId}")
+    public SkuInfoVo getSkuInfoVo(@PathVariable("skuId") Long skuId) {
+        return skuInfoService.getSkuInfoVo(skuId);
     }
 }

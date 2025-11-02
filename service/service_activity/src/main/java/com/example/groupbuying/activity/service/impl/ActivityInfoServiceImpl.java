@@ -2,6 +2,7 @@ package com.example.groupbuying.activity.service.impl;
 
 import com.example.groupbuying.activity.mapper.ActivityRuleMapper;
 import com.example.groupbuying.activity.mapper.ActivitySkuMapper;
+import com.example.groupbuying.activity.service.CouponInfoService;
 import com.example.groupbuying.client.product.ProductFeignClient;
 import com.example.groupbuying.enums.ActivityType;
 import com.example.groupbuying.model.activity.ActivityInfo;
@@ -13,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.groupbuying.model.activity.ActivityRule;
 import com.example.groupbuying.model.activity.ActivitySku;
+import com.example.groupbuying.model.activity.CouponInfo;
 import com.example.groupbuying.model.product.SkuInfo;
 import com.example.groupbuying.vo.activity.ActivityRuleVo;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +48,9 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
 
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private CouponInfoService couponInfoService;
 
     //优惠活动列表方法
     @Override
@@ -129,19 +134,6 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
         return notExistSkuInfoList;
     }
 
-    //查询商品获取规则数据
-    @Override
-    public List<ActivityRule> findActivityRule(Long skuId) {
-        List<ActivityRule> activityRuleList = activityInfoMapper.selectActivityRuleList(skuId);
-        if(!CollectionUtils.isEmpty(activityRuleList)) {
-            for(ActivityRule activityRule : activityRuleList) {
-                activityRule.setRuleDesc(this.getRuleDesc(activityRule));
-            }
-        }
-        return activityRuleList;
-    }
-
-
     /**
      * 根据skuId列表获取促销信息
      *
@@ -188,5 +180,31 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
                     .append("折");
         }
         return ruleDesc.toString();
+    }
+
+    @Override
+    public Map<String, Object> findActivityAndCoupon(Long skuId, Long userId) {
+        // 根据skuId获取sku营销活动。一个sku只能有一个促销活动，一个活动有多个活动规则（如满赠，满100送10，满500送50）
+        List<ActivityRule> activityRuleList = this.findActivityRuleBySkuId(skuId);
+
+        // 根据skuId和userId获取优惠券信息
+        List<CouponInfo> couponInfoList = couponInfoService.findCouponInfo(skuId, userId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("activityRuleList", activityRuleList);
+        map.put("couponInfoList", couponInfoList);
+        return map;
+    }
+    //根据skuId获取活动规则数据
+    @Override
+    public List<ActivityRule> findActivityRuleBySkuId(Long skuId) {
+        List<ActivityRule> activityRuleList = baseMapper.findActivityRule(skuId);
+        if(!CollectionUtils.isEmpty(activityRuleList)) {
+            for (ActivityRule activityRule : activityRuleList) {
+                String ruleDesc = this.getRuleDesc(activityRule);
+                activityRule.setRuleDesc(ruleDesc);
+            }
+        }
+        return activityRuleList;
     }
 }

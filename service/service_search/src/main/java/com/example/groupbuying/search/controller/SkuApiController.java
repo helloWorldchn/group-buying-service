@@ -67,4 +67,18 @@ public class SkuApiController {
         Page<SkuEs> pageModel = skuService.search(pageable, searchParamVo);
         return Result.ok(pageModel);
     }
+
+    /**
+     * 更新商品热度incrHotScore
+     *
+     * @param skuId 商品skuId
+     * @return 是否更新成功
+     */
+    @ApiOperation(value = "更新商品incrHotScore")
+    @GetMapping("inner/incrHotScore/{skuId}")
+    public Boolean incrHotScore(@PathVariable("skuId") Long skuId) {
+        // 调用服务层
+        skuService.incrHotScore(skuId);
+        return true;
+    }
 }

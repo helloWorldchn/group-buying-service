@@ -19,10 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,6 +42,9 @@ public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private ActivityFeignClient activityFeignClient;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 上架商品列表
@@ -138,5 +143,26 @@ public class SkuServiceImpl implements SkuService {
             }
         }
         return page;
+    }
+
+    /**
+     * 更新商品热度incrHotScore
+     *
+     * @param skuId 商品skuId
+     * @return 是否更新成功
+     */
+    @Override
+    public void incrHotScore(Long skuId) {
+        // 定义key
+        String hotKey = "hotScore";
+        // 保存数据：key为hotScore，value为skuId:{skuId}的值，每次score加一。返回加1后的score。
+        Double hotScore = redisTemplate.opsForZSet().incrementScore(hotKey, "skuId:" + skuId, 1);
+        if (hotScore % 10 == 0){
+            // 更新ElasticSearch
+            Optional<SkuEs> optional = skuEsRepository.findById(skuId);
+            SkuEs skuEs = optional.get();
+            skuEs.setHotScore(Math.round(hotScore));
+            skuEsRepository.save(skuEs);
+        }
     }
 }

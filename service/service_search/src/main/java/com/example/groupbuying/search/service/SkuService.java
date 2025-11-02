@@ -35,4 +35,11 @@ public interface SkuService {
      * @return 分类商品信息
      */
     Page<SkuEs> search(Pageable pageable, SkuEsQueryVo skuEsQueryVo);
+
+    /**
+     * 更新商品热度incrHotScore
+     *
+     * @param skuId 商品skuId
+     */
+    void incrHotScore(Long skuId);
 }
