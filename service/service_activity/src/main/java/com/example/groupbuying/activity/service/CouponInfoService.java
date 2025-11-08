@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.groupbuying.model.activity.CouponInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.groupbuying.model.order.CartInfo;
 import com.example.groupbuying.vo.activity.CouponRuleVo;
 
 import java.util.List;
@@ -35,4 +36,21 @@ public interface CouponInfoService extends IService<CouponInfo> {
     List<CouponInfo> findCouponByKeyword(String keyword);
 
     List<CouponInfo> findCouponInfo(Long skuId, Long userId);
+
+    /**
+     * 获取购物车中可以使用的优惠券的列表
+     *
+     * @param cartInfoList 购物车列表
+     * @param userId 用户id
+     * @return 购物车中可可以使用的优惠券的列表
+     */
+    List<CouponInfo> findCartCouponInfo(List<CartInfo> cartInfoList, Long userId);
+    /**
+     * 获取优惠券范围对应的购物车列表
+     *
+     * @param cartInfoList 购物车列表
+     * @param couponId 优惠券Id
+     * @return 优惠券范围对应的购物车列表
+     */
+    CouponInfo findRangeSkuIdList(List<CartInfo> cartInfoList, Long couponId);
 }
