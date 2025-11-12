@@ -3,6 +3,7 @@ package com.example.groupbuying.client.product;
 import com.example.groupbuying.model.product.Category;
 import com.example.groupbuying.model.product.SkuInfo;
 import com.example.groupbuying.vo.product.SkuInfoVo;
+import com.example.groupbuying.vo.product.SkuStockLockVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,4 +41,7 @@ public interface ProductFeignClient {
 
     @GetMapping("/api/product/inner/getSkuInfoVo/{skuId}")
     SkuInfoVo getSkuInfoVo(@PathVariable("skuId") Long skuId);
+
+    @PostMapping("/api/product/inner/checkAndLock/{orderNo}")
+    Boolean checkAndLock(@RequestBody List<SkuStockLockVo> skuStockLockVoList, @PathVariable String orderNo);
 }

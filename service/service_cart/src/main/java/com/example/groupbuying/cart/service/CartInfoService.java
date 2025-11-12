@@ -36,7 +36,7 @@ public interface CartInfoService {
      * @param skuIdList 商品skuId集合
      * @param userId 用户Id
      */
-    void batchDeleteCart(List<Long> skuIdList, Long userId);
+    void deleteCartCheck(List<Long> skuIdList, Long userId);
 
     /**
      * 通过用户Id 查询购物车列表
@@ -58,4 +58,14 @@ public interface CartInfoService {
     void checkAllCart(Long userId, Integer isChecked);
 
     void batchCheckCart(List<Long> skuIdList, Long userId, Integer isChecked);
+
+    /**
+     * 根据用户Id 查询购物车列表
+     *
+     * @param userId 用户Id
+     * @return 购物车列表
+     */
+    List<CartInfo> getCartCheckedList(Long userId);
+
+    void deleteCartCheck(Long userId);
 }

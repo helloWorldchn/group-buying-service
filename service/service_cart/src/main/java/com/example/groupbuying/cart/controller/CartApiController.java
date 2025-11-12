@@ -8,7 +8,6 @@ import com.example.groupbuying.model.order.CartInfo;
 import com.example.groupbuying.vo.order.OrderConfirmVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -93,7 +92,7 @@ public class CartApiController {
     public Result<String> batchDeleteCart(@RequestBody List<Long> skuIdList, HttpServletRequest request){
         // 如何获取userId
         Long userId = AuthContextHolder.getUserId();
-        cartInfoService.batchDeleteCart(skuIdList, userId);
+        cartInfoService.deleteCartCheck(skuIdList, userId);
         return Result.ok("success");
     }
     /**
@@ -157,6 +156,16 @@ public class CartApiController {
         Long userId = AuthContextHolder.getUserId();
         cartInfoService.batchCheckCart(skuIdList, userId, isChecked);
         return Result.ok("success");
+    }
+    /**
+     * 根据用户Id 查询购物车列表
+     *
+     * @param userId 用户Id
+     * @return 购物车列表
+     */
+    @GetMapping("inner/getCartCheckedList/{userId}")
+    public List<CartInfo> getCartCheckedList(@PathVariable("userId") Long userId) {
+        return cartInfoService.getCartCheckedList(userId);
     }
 }
 

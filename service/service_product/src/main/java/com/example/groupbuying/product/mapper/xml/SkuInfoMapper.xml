@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.groupbuying.product.mapper.SkuInfoMapper">
 
+    <resultMap id="skuInfoMap" type="com.example.groupbuying.model.product.SkuInfo" autoMapping="true">
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,category_id,sku_type,sku_name,img_url,per_limit,publish_status,check_status,is_new_person,sort,sku_code,price,market_price,stock,lock_stock,low_stock,sale,ware_id,create_time,update_time,is_deleted
+    </sql>
+
+    <select id="checkStock" resultMap="skuInfoMap">
+        SELECT id,category_id,sku_type,sku_name,img_url,per_limit,publish_status,
+               check_status,is_new_person,sort,sku_code,price,market_price,stock,lock_stock,low_stock,
+               sale,ware_id,create_time,update_time,is_deleted
+        FROM sku_info
+        WHERE id = #{skuId} AND stock - lock_stock > #{skuNum} FOR UPDATE
+    </select>
+
+    <update id="lockStock">
+        UPDATE sku_info SET lock_stock = lock_stock + #{skuNum} WHERE id = #{skuId}
+    </update>
+
+    <update id="unlockStock">
+        UPDATE sku_info SET lock_stock = lock_stock - #{skuNum} WHERE id = #{skuId}
+    </update>
+
 </mapper>

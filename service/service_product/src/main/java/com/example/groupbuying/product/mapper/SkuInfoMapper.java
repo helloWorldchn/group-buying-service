@@ -2,6 +2,8 @@ package com.example.groupbuying.product.mapper;
 
 import com.example.groupbuying.model.product.SkuInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author example
  * @since 2024-04-19
  */
+@Repository
 public interface SkuInfoMapper extends BaseMapper<SkuInfo> {
 
+    SkuInfo checkStock(@Param("skuId") Long skuId, @Param("skuNum") Integer skuNum);
+
+    Integer lockStock(@Param("skuId")Long skuId, @Param("skuNum")Integer skuNum);
+
+    Integer unlockStock(@Param("skuId")Long skuId, @Param("skuNum")Integer skuNum);
 }

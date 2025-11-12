@@ -5,6 +5,7 @@ import com.example.groupbuying.model.product.SkuInfo;
 import com.example.groupbuying.product.service.CategoryService;
 import com.example.groupbuying.product.service.SkuInfoService;
 import com.example.groupbuying.vo.product.SkuInfoVo;
+import com.example.groupbuying.vo.product.SkuStockLockVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,11 @@ public class ProductInnerController {
     @GetMapping("inner/getSkuInfoVo/{skuId}")
     public SkuInfoVo getSkuInfoVo(@PathVariable("skuId") Long skuId) {
         return skuInfoService.getSkuInfoVo(skuId);
+    }
+
+    @ApiOperation(value = "验证锁定库存")
+    @PostMapping("inner/checkAndLock/{orderNo}")
+    public Boolean checkAndLock(@RequestBody List<SkuStockLockVo> skuStockLockVoList, @PathVariable String orderNo) {
+        return skuInfoService.checkAndLock(skuStockLockVoList, orderNo);
     }
 }

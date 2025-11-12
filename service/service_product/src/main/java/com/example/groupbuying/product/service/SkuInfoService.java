@@ -6,6 +6,7 @@ import com.example.groupbuying.model.product.SkuInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.groupbuying.vo.product.SkuInfoQueryVo;
 import com.example.groupbuying.vo.product.SkuInfoVo;
+import com.example.groupbuying.vo.product.SkuStockLockVo;
 
 import java.util.List;
 
@@ -56,4 +57,13 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return 新人专享商品列表
      */
     List<SkuInfo> findNewPersonSkuInfoList();
+
+    /**
+     * 验证锁定库存
+     *
+     * @param skuStockLockVoList 要验证锁定的商品集合
+     * @param orderNo 订单唯一标识
+     * @return 是否成功
+     */
+    Boolean checkAndLock(List<SkuStockLockVo> skuStockLockVoList, String orderNo);
 }

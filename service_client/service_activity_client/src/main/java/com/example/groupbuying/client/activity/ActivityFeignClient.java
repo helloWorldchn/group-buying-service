@@ -2,6 +2,7 @@ package com.example.groupbuying.client.activity;
 
 import com.example.groupbuying.model.activity.CouponInfo;
 import com.example.groupbuying.model.order.CartInfo;
+import com.example.groupbuying.vo.order.CartInfoVo;
 import com.example.groupbuying.vo.order.OrderConfirmVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,4 +50,33 @@ public interface ActivityFeignClient {
      */
     @PostMapping(value = "/api/activity/inner/findRangeSkuIdList/{couponId}")
     CouponInfo findRangeSkuIdList(@RequestBody List<CartInfo> cartInfoList, @PathVariable("couponId") Long couponId);
+    /**
+     * 更新优惠券支付时间
+     *
+     * @param couponId 优惠券id
+     * @param userId 用户id
+     * @return 是否更新成功
+     */
+    @GetMapping(value = "/api/activity/inner/updateCouponInfoUsedTime/{couponId}/{userId}")
+    Boolean updateCouponInfoUsedTime(@PathVariable("couponId") Long couponId, @PathVariable("userId") Long userId);
+
+    /**
+     * 更新优惠券使用状态
+     *
+     * @param couponId 优惠券id
+     * @param userId 用户id
+     * @param orderId 订单id
+     * @return 是否更新成功
+     */
+    @GetMapping(value = "/api/activity/inner/updateCouponInfoUseStatus/{couponId}/{userId}/{orderId}")
+    Boolean updateCouponInfoUseStatus(@PathVariable("couponId") Long couponId, @PathVariable("userId") Long userId, @PathVariable("orderId") Long orderId);
+
+    /**
+     * 获取购物车对应的促销活动
+     *
+     * @param cartInfoList 购物车列表
+     * @return 购物车对应的促销活动
+     */
+    @PostMapping(value = "/api/activity/inner/findCartActivityList")
+    List<CartInfoVo> findCartActivityList(@RequestBody List<CartInfo> cartInfoList);
 }

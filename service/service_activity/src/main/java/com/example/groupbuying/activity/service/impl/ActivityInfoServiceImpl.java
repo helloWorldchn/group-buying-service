@@ -263,6 +263,12 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
         return orderTradeVo;
     }
 
+    /**
+     * 获取购物车对应的促销活动
+     *
+     * @param cartInfoList 购物车列表
+     * @return 购物车对应的促销活动
+     */
     @Override
     public List<CartInfoVo> findCartActivityList(List<CartInfo> cartInfoList) {
         List<CartInfoVo> carInfoVoList = new ArrayList<>();

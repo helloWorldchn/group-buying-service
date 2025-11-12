@@ -20,6 +20,7 @@
         <module>service_user</module>
         <module>service_home</module>
         <module>service_cart</module>
+        <module>service_order</module>
     </modules>
 
     <properties>

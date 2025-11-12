@@ -8,11 +8,13 @@ import com.example.groupbuying.activity.mapper.CouponRangeMapper;
 import com.example.groupbuying.activity.mapper.CouponUseMapper;
 import com.example.groupbuying.client.product.ProductFeignClient;
 import com.example.groupbuying.enums.CouponRangeType;
+import com.example.groupbuying.enums.CouponStatus;
 import com.example.groupbuying.model.activity.CouponInfo;
 import com.example.groupbuying.activity.mapper.CouponInfoMapper;
 import com.example.groupbuying.activity.service.CouponInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.groupbuying.model.activity.CouponRange;
+import com.example.groupbuying.model.activity.CouponUse;
 import com.example.groupbuying.model.base.BaseEntity;
 import com.example.groupbuying.model.order.CartInfo;
 import com.example.groupbuying.model.product.Category;
@@ -280,5 +282,48 @@ public class CouponInfoServiceImpl extends ServiceImpl<CouponInfoMapper, CouponI
             couponIdToSkuIdMap.put(couponId, new ArrayList<>(skuIdSet));
         }
         return couponIdToSkuIdMap;
+    }
+
+    /**
+     * 更新优惠券使用状态
+     *
+     * @param couponId 优惠券id
+     * @param userId   用户id
+     * @param orderId  订单id
+     * @return 是否更新成功
+     */
+    @Override
+    public boolean updateCouponInfoUseStatus(Long couponId, Long userId, Long orderId) {
+        CouponUse couponUse = new CouponUse();
+        couponUse.setOrderId(orderId);
+        couponUse.setCouponStatus(CouponStatus.USED);
+        couponUse.setUsingTime(new Date());
+
+        QueryWrapper<CouponUse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("coupon_id", couponId);
+        queryWrapper.eq("user_id", userId);
+        int update = couponUseMapper.update(couponUse, queryWrapper);
+        return update > 0;
+    }
+
+    /**
+     * 更新优惠券支付时间
+     *
+     * @param couponId 优惠券id
+     * @param userId   用户id
+     * @return 是否更新成功
+     */
+    @Override
+    public boolean updateCouponInfoUsedTime(Long couponId, Long userId) {
+        CouponUse couponUse = new CouponUse();
+        Date date = new Date();
+        couponUse.setUsedTime(date);
+        couponUse.setUsingTime(date);
+
+        QueryWrapper<CouponUse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("coupon_id", couponId);
+        queryWrapper.eq("user_id", userId);
+        int update = couponUseMapper.update(couponUse, queryWrapper);
+        return update > 0;
     }
 }
