@@ -26,4 +26,9 @@
         UPDATE sku_info SET lock_stock = lock_stock - #{skuNum} WHERE id = #{skuId}
     </update>
 
+    <!--减少库存-->
+    <update id="minusStock">
+        update sku_info set stock = stock - #{skuNum}, lock_stock = lock_stock - #{skuNum}, sales = sales + #{skuNum} where id = #{skuId}
+    </update>
+
 </mapper>

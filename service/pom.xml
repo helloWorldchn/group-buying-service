@@ -21,6 +21,7 @@
         <module>service_home</module>
         <module>service_cart</module>
         <module>service_order</module>
+        <module>service_payment</module>
     </modules>
 
     <properties>

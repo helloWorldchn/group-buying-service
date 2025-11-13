@@ -17,6 +17,6 @@ docker ps
 
 docker run --restart=always --name kibana -e ELASTICSEARCH_HOSTS=http://192.168.153.83:9200 -p 5601:5601 -d kibana:7.4.0
 
-
+#### 订单微信支付由于没有商户号，暂未测试。
 
 

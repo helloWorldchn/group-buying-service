@@ -8,6 +8,7 @@ import com.example.groupbuying.vo.product.SkuInfoQueryVo;
 import com.example.groupbuying.vo.product.SkuInfoVo;
 import com.example.groupbuying.vo.product.SkuStockLockVo;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,4 +67,11 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return 是否成功
      */
     Boolean checkAndLock(List<SkuStockLockVo> skuStockLockVoList, String orderNo);
+
+    /**
+     * 扣减库存
+     *
+     * @param orderNo 订单号
+     */
+    void minusStock(String orderNo);
 }

@@ -21,4 +21,12 @@ public interface SkuInfoMapper extends BaseMapper<SkuInfo> {
     Integer lockStock(@Param("skuId")Long skuId, @Param("skuNum")Integer skuNum);
 
     Integer unlockStock(@Param("skuId")Long skuId, @Param("skuNum")Integer skuNum);
+
+    /**
+     * 减库存
+     *
+     * @param skuId 商品skuId
+     * @param skuNum 减少数量
+     */
+    void minusStock(@Param("skuId")Long skuId, @Param("skuNum")Integer skuNum);
 }
